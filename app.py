@@ -1,127 +1,79 @@
 from flask import Flask, render_template_string
-import os
 
 app = Flask(__name__)
 
 @app.route("/")
-def hello():
-    html_content = '''
+def home():
+    ronaldo_bio_html = """
     <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Docker Course</title>
+        <title>Cristiano Ronaldo - Biography</title>
+        <!-- Favicon fix to avoid 404 -->
+        <link rel="icon" href="data:;base64,=">
         <style>
             body {
-                font-family: Arial, sans-serif;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #1f1c2c, #928dab);
+                margin: 0;
+                padding: 0;
                 display: flex;
-                flex-direction: column;
                 align-items: center;
                 justify-content: center;
                 height: 100vh;
-                margin: 0;
-                background-color: #f4f4f4;
             }
-            .container {
-                text-align: center;
-                background: #fff;
+            .card {
+                background: white;
+                border-radius: 20px;
                 padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                width: 100%;
-                max-width: 800px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+                width: 350px;
+                text-align: center;
+                animation: fadeIn 1s ease-in;
             }
-            .header {
-                margin-bottom: 20px;
+            .card img {
+                width: 90%;
+                border-radius: 15px;
+                margin-bottom: 15px;
             }
-            .title {
-                color: #0044cc;
+            .card h1 {
+                margin-top: 10px;
+                font-size: 2em;
+                color: #333;
+            }
+            .card p {
+                color: #555;
+                font-size: 0.95em;
+                line-height: 1.5;
+                margin: 8px 0;
+            }
+            .highlight {
                 font-weight: bold;
-                font-size: 24px;
-                font-family: 'Berlin Sans FB', sans-serif;
+                color: #1f1c2c;
             }
-            .subtitle {
-                font-style: italic;
-                color: #000;
-                font-family: 'Times New Roman', Times, serif;
-            }
-            .name {
-                font-weight: bold;
-                font-size: 24px;
-                font-family: 'Pacifico', cursive;
-            }
-            .message {
-                font-style: italic;
-                margin-bottom: 10px;
-            }
-            .gif {
-                margin-bottom: 20px;
-            }
-            .button {
-                display: inline-block;
-                padding: 10px 20px;
-                margin: 10px;
-                font-size: 16px;
-                color: #fff;
-                text-decoration: none;
-                border-radius: 5px;
-                display: flex;
-                align-items: center;
-            }
-            .button img {
-                margin-right: 10px;
-            }
-            .docker-button {
-                background-color: #0db7ed;
-            }
-            .linkedin-button {
-                background-color: #0077b5;
-            }
-            .footer {
-                margin-top: 20px;
-                font-family: 'Times New Roman', Times, serif;
-            }
-            .profile-pic {
-                position: absolute;
-                bottom: 10px;
-                right: 10px;
-                border-radius: 50%;
-                width: 120px;
-                height: 120px;
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-20px); }
+                to { opacity: 1; transform: translateY(0); }
             }
         </style>
     </head>
     <body>
-        <div class="container">
-            <div class="header">
-                <div class="bold">Hello DOCKERian, Welcome ! ! !</div>
-                <div class="message">Firstly, Congratulations for deploying the Python Application successfully</div>
-                <img src="https://d2gbo5uoddvg5.cloudfront.net/images/gifs/logo-docker.gif" class="gif" alt="Docker Gif" width="150">
-            </div>
-            <div>
-                <div class="subtitle">Welcome to</div>
-                <div class="title">Docker - Basics to Brilliance Course</div>
-                <div class="subtitle">by</div>
-                <div class="name">Kastro Kiran V</div>
-            </div>
-            <a href="https://www.youtube.com/playlist?list=PLs-PsDpuAuTeNx3OgGQ1QrpNBo-XE6VBh" class="button docker-button" target="_blank">
-                <img src="https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png" alt="Docker Icon" width="20"> Docker - Basics to Brilliance
-            </a>
-            <a href="https://www.linkedin.com/in/kastro-kiran/" class="button linkedin-button" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn Icon" width="20"> LinkedIn Connect
-            </a>
+        <div class="card">
+            <!-- Static Ronaldo Image -->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg" alt="Cristiano Ronaldo">
+            <h1>Cristiano Ronaldo</h1>
+            <p><span class="highlight">Born:</span> February 5, 1985</p>
+            <p><span class="highlight">Position:</span> Forward</p>
+            <p><span class="highlight">Clubs:</span> Sporting CP, Manchester United, Real Madrid, Juventus, Al-Nassr</p>
+            <p><span class="highlight">Achievements:</span> 5 Ballon d'Ors, 5 Champions Leagues, Portugal's top scorer</p>
+            <p>Ronaldo is a symbol of determination and excellence. His legacy inspires athletes and fans all around the world.</p>
         </div>
-        <div class="footer">
-            Happy Learning!<br>
-            &copy; Kastro
-        </div>
-        <img src="https://media.licdn.com/dms/image/D5603AQHJB_lF1d9OSw/profile-displayphoto-shrink_800_800/0/1718971147172?e=1724889600&v=beta&t=RD4RRp_ogwCNex7BkOmy0oO68NkL5ParvKJh8y1_05s" alt="Profile Picture" class="profile-pic">
     </body>
     </html>
-    '''
-    return render_template_string(html_content)
+    """
+    return render_template_string(ronaldo_bio_html)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(debug=True, host='0.0.0.0', port=port)
+    app.run(host="0.0.0.0", port=5000)
