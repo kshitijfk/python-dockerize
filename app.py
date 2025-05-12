@@ -62,7 +62,7 @@ def home():
     <body>
         <div class="card">
             <!-- Static Ronaldo Image -->
-            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg" alt="Cristiano Ronaldo">
+            <img src="https://cdna.artstation.com/p/assets/images/images/061/068/222/large/bright-star-cristiano-ronaldo-edit.jpg?1679944422" alt="Cristiano Ronaldo">
             <h1>Cristiano Ronaldo</h1>
             <p><span class="highlight">Born:</span> February 5, 1985</p>
             <p><span class="highlight">Position:</span> Forward</p>
